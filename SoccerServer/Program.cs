@@ -34,8 +34,8 @@ class Player
 
 class Match
 {
-    public Player Player1 { get; set; }
-    public Player Player2 { get; set; }
+    public Player Player1 { get; private set; }
+    public Player Player2 { get; private set; }
 
     // Estado do jogo
     private float player1X, player1Y, player1VelY;
@@ -48,14 +48,16 @@ class Match
     private const float groundY = -5f;
     private const float playerRadius = 1f;
     private const float ballRadius = 0.5f;
-    private const float jumpHeight = 5000f;
-    private const float kickPower = 20000f;
-    private const float playerSpeed = 100f;
+
+    private const float jumpHeight = 8f;       // pulo realista
+    private const float kickPower = 12f;       // força de chute realista
+    private const float playerSpeed = 5f;      // velocidade horizontal
 
     private float halfWidth = fieldWidth / 2f;
     private float halfHeight = fieldHeight / 2f;
 
     private bool running = true;
+    private const int physicsHz = 50; // 50 atualizações por segundo
 
     public Match(Player p1, Player p2)
     {
@@ -65,30 +67,22 @@ class Match
         // Inicializa posições
         player1X = -halfWidth + 2f;
         player1Y = groundY + playerRadius;
-
         player2X = halfWidth - 2f;
         player2Y = groundY + playerRadius;
 
         ballX = 0f;
         ballY = groundY + ballRadius;
 
-        // Start da thread de simulação
         new Thread(RunMatch).Start();
     }
 
     private void RunMatch()
     {
-        Stopwatch stopwatch = Stopwatch.StartNew();
-        double lastTime = stopwatch.Elapsed.TotalSeconds;
-
+        float deltaTime = 1f / physicsHz;
         double sendAccumulator = 0;
 
         while (running)
         {
-            double now = stopwatch.Elapsed.TotalSeconds;
-            float deltaTime = (float)(now - lastTime);
-            lastTime = now;
-
             ApplyInput(Player1, ref player1X, ref player1Y, ref player1VelY, deltaTime);
             ApplyInput(Player2, ref player2X, ref player2Y, ref player2VelY, deltaTime);
 
@@ -97,7 +91,7 @@ class Match
             ballX += ballVelX * deltaTime;
             ballY += ballVelY * deltaTime;
 
-            // colisão chão/teto da bola
+            // Colisão chão/teto
             if (ballY - ballRadius < groundY)
             {
                 ballY = groundY + ballRadius;
@@ -128,7 +122,7 @@ class Match
                 ResetBall();
             }
 
-            // colisão lateral fora do gol
+            // Colisão lateral fora do gol
             if (!leftGoal && ballX - ballRadius < -halfWidth)
             {
                 ballX = -halfWidth + ballRadius;
@@ -140,9 +134,9 @@ class Match
                 ballVelX = -ballVelX * 0.7f;
             }
 
-            ballVelX *= 0.995f;
+            ballVelX *= 0.995f; // atrito horizontal
 
-            // envia estado 30 FPS
+            // Envia estado a 30 FPS
             sendAccumulator += deltaTime;
             if (sendAccumulator >= 1.0 / 30.0)
             {
@@ -150,22 +144,22 @@ class Match
                 sendAccumulator = 0;
             }
 
-            Thread.Sleep(1);
+            Thread.Sleep(1000 / physicsHz);
         }
     }
 
     private void ApplyInput(Player player, ref float px, ref float py, ref float velY, float deltaTime)
     {
-        var input = player.LastInput ?? new PlayerInput(); // garante não nulo
+        var input = player.LastInput ?? new PlayerInput();
 
         // Movimento horizontal
-        px += input.h * playerSpeed * deltaTime;
+        px += input.h * playerSpeed;
         px = Math.Clamp(px, -halfWidth + playerRadius, halfWidth - playerRadius);
 
         // Pulo
         if (input.v > 0 && py <= groundY + playerRadius + 0.01f)
         {
-            velY = jumpHeight * deltaTime;
+            velY = jumpHeight;
         }
 
         // Chute
@@ -174,8 +168,8 @@ class Match
         float dist = MathF.Sqrt(dx * dx + dy * dy);
         if (input.kick && dist < 1.5f)
         {
-            ballVelX = dx / dist * kickPower * deltaTime;
-            ballVelY = dy / dist * kickPower * deltaTime;
+            ballVelX = dx / dist * kickPower;
+            ballVelY = dy / dist * kickPower;
         }
 
         // Física vertical do player
@@ -193,10 +187,8 @@ class Match
             velY = 0f;
         }
 
-        // limpa input apenas se não for null
-        player.LastInput = new PlayerInput();
+        player.LastInput = new PlayerInput(); // limpa input
     }
-
 
     private void SendState(string lastEvent)
     {
@@ -230,6 +222,7 @@ class Match
         running = false;
     }
 }
+
 
 class MatchmakingServer
 {
