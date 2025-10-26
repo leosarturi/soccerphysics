@@ -173,7 +173,7 @@ class Match
         }
 
         // Física vertical do player
-        float gravity = 30f;
+        float gravity = 9.8f;
         float fallMultiplier = 2.5f;
 
         if (velY > 0)
