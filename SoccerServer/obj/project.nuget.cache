@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "fXvmSThemv4=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\sartu\\OneDrive\\Desktop\\soccerphysics\\SoccerServer\\SoccerServer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\sartu\\.nuget\\packages\\fleck\\1.2.0\\fleck.1.2.0.nupkg.sha512"
+  ],
+  "logs": []
+}

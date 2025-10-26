@@ -1,0 +1,17 @@
+C:\Users\sartu\OneDrive\Desktop\soccerphysics\SoccerServer\bin\Debug\net9.0\SoccerServer.exe
+C:\Users\sartu\OneDrive\Desktop\soccerphysics\SoccerServer\bin\Debug\net9.0\SoccerServer.deps.json
+C:\Users\sartu\OneDrive\Desktop\soccerphysics\SoccerServer\bin\Debug\net9.0\SoccerServer.runtimeconfig.json
+C:\Users\sartu\OneDrive\Desktop\soccerphysics\SoccerServer\bin\Debug\net9.0\SoccerServer.dll
+C:\Users\sartu\OneDrive\Desktop\soccerphysics\SoccerServer\bin\Debug\net9.0\SoccerServer.pdb
+C:\Users\sartu\OneDrive\Desktop\soccerphysics\SoccerServer\bin\Debug\net9.0\Fleck.dll
+C:\Users\sartu\OneDrive\Desktop\soccerphysics\SoccerServer\obj\Debug\net9.0\SoccerServer.csproj.AssemblyReference.cache
+C:\Users\sartu\OneDrive\Desktop\soccerphysics\SoccerServer\obj\Debug\net9.0\SoccerServer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\sartu\OneDrive\Desktop\soccerphysics\SoccerServer\obj\Debug\net9.0\SoccerServer.AssemblyInfoInputs.cache
+C:\Users\sartu\OneDrive\Desktop\soccerphysics\SoccerServer\obj\Debug\net9.0\SoccerServer.AssemblyInfo.cs
+C:\Users\sartu\OneDrive\Desktop\soccerphysics\SoccerServer\obj\Debug\net9.0\SoccerServer.csproj.CoreCompileInputs.cache
+C:\Users\sartu\OneDrive\Desktop\soccerphysics\SoccerServer\obj\Debug\net9.0\SoccerSe.2BE13103.Up2Date
+C:\Users\sartu\OneDrive\Desktop\soccerphysics\SoccerServer\obj\Debug\net9.0\SoccerServer.dll
+C:\Users\sartu\OneDrive\Desktop\soccerphysics\SoccerServer\obj\Debug\net9.0\refint\SoccerServer.dll
+C:\Users\sartu\OneDrive\Desktop\soccerphysics\SoccerServer\obj\Debug\net9.0\SoccerServer.pdb
+C:\Users\sartu\OneDrive\Desktop\soccerphysics\SoccerServer\obj\Debug\net9.0\SoccerServer.genruntimeconfig.cache
+C:\Users\sartu\OneDrive\Desktop\soccerphysics\SoccerServer\obj\Debug\net9.0\ref\SoccerServer.dll
