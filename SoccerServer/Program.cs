@@ -107,8 +107,13 @@ class Match
 
             // Detecção de gol
             string lastEvent = "";
-            bool leftGoal = (ballX - ballRadius < -halfWidth + -goalwidth) && (ballY - ballRadius >= groundY) && (ballY + ballRadius <= halfHeight + groundY);
-            bool rightGoal = (ballX + ballRadius > halfWidth + goalwidth) && (ballY - ballRadius >= groundY) && (ballY + ballRadius <= halfHeight + groundY);
+            // Altura do gol
+            float goalTopY = 0f; // altura máxima do gol
+            float goalBottomY = groundY; // altura mínima do gol
+
+            // Detecção de gol
+            bool leftGoal = (ballX - ballRadius < -halfWidth) && (ballY >= goalBottomY && ballY <= goalTopY);
+            bool rightGoal = (ballX + ballRadius > halfWidth) && (ballY >= goalBottomY && ballY <= goalTopY);
 
             if (leftGoal)
             {
@@ -123,17 +128,28 @@ class Match
                 ResetBall();
             }
 
-            // Colisão lateral fora do gol
-            if (!leftGoal && ballX - ballRadius < -halfWidth + -goalwidth)
+            // Colisão lateral
+            float leftLimit = -halfWidth;
+            float rightLimit = halfWidth;
+
+            if (ballY >= goalBottomY && ballY <= goalTopY) // dentro da altura do gol
             {
-                ballX = -halfWidth + ballRadius;
+                leftLimit -= goalwidth;   // adiciona goalWidth
+                rightLimit += goalwidth;
+            }
+
+            // Colisão lateral ajustada
+            if (ballX - ballRadius < leftLimit)
+            {
+                ballX = leftLimit + ballRadius;
                 ballVelX = -ballVelX * 0.7f;
             }
-            if (!rightGoal && ballX + ballRadius > halfWidth + goalwidth)
+            if (ballX + ballRadius > rightLimit)
             {
-                ballX = halfWidth - ballRadius;
+                ballX = rightLimit - ballRadius;
                 ballVelX = -ballVelX * 0.7f;
             }
+
 
             ballVelX *= 0.995f; // atrito horizontal
 
