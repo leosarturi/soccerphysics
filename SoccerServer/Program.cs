@@ -155,7 +155,7 @@ class Match
 
             // Envia estado a 30 FPS
             sendAccumulator += deltaTime;
-            if (sendAccumulator >= 1.0 / 120.0)
+            if (sendAccumulator >= 1.0 / 15.0)
             {
                 SendState(lastEvent);
                 sendAccumulator = 0;
