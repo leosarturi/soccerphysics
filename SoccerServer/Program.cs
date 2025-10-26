@@ -7,9 +7,9 @@ using System.Diagnostics;
 
 class PlayerInput
 {
-    public float h { get; set; }
-    public float v { get; set; } // v > 0 significa pulo
-    public bool kick { get; set; }
+    public float h { get; set; } = 0;
+    public float v { get; set; } = 0;// v > 0 significa pulo
+    public bool kick { get; set; } = false;
 }
 
 class GameState
