@@ -51,7 +51,8 @@ class Match
 
     private const float jumpHeight = 350f;       // pulo realista
     private const float kickPower = 12f;       // força de chute realista
-    private const float playerSpeed = 8f;      // velocidade horizontal
+    private const float playerSpeed = 8f;
+    private const float goalwidth = 1f;   // velocidade horizontal
 
     private float halfWidth = fieldWidth / 2f;
     private float halfHeight = fieldHeight / 2f;
@@ -106,8 +107,8 @@ class Match
 
             // Detecção de gol
             string lastEvent = "";
-            bool leftGoal = (ballX - ballRadius < -halfWidth) && (ballY - ballRadius >= groundY) && (ballY + ballRadius <= halfHeight + groundY);
-            bool rightGoal = (ballX + ballRadius > halfWidth) && (ballY - ballRadius >= groundY) && (ballY + ballRadius <= halfHeight + groundY);
+            bool leftGoal = (ballX - ballRadius < -halfWidth + -goalwidth) && (ballY - ballRadius >= groundY) && (ballY + ballRadius <= halfHeight + groundY);
+            bool rightGoal = (ballX + ballRadius > halfWidth + goalwidth) && (ballY - ballRadius >= groundY) && (ballY + ballRadius <= halfHeight + groundY);
 
             if (leftGoal)
             {
@@ -123,12 +124,12 @@ class Match
             }
 
             // Colisão lateral fora do gol
-            if (!leftGoal && ballX - ballRadius < -halfWidth)
+            if (!leftGoal && ballX - ballRadius < -halfWidth + -goalwidth)
             {
                 ballX = -halfWidth + ballRadius;
                 ballVelX = -ballVelX * 0.7f;
             }
-            if (!rightGoal && ballX + ballRadius > halfWidth)
+            if (!rightGoal && ballX + ballRadius > halfWidth + goalwidth)
             {
                 ballX = halfWidth - ballRadius;
                 ballVelX = -ballVelX * 0.7f;
@@ -138,7 +139,7 @@ class Match
 
             // Envia estado a 30 FPS
             sendAccumulator += deltaTime;
-            if (sendAccumulator >= 1.0 / 30.0)
+            if (sendAccumulator >= 1.0 / 120.0)
             {
                 SendState(lastEvent);
                 sendAccumulator = 0;
