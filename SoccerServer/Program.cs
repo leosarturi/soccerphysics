@@ -106,8 +106,8 @@ class Match
 
             // Detecção de gol
             string lastEvent = "";
-            bool leftGoal = (ballX - ballRadius < -halfWidth) && (ballY - ballRadius >= groundY) && (ballY + ballRadius <= halfHeight);
-            bool rightGoal = (ballX + ballRadius > halfWidth) && (ballY - ballRadius >= groundY) && (ballY + ballRadius <= halfHeight);
+            bool leftGoal = (ballX - ballRadius < -halfWidth) && (ballY - ballRadius >= groundY) && (ballY + ballRadius <= halfHeight - groundY);
+            bool rightGoal = (ballX + ballRadius > halfWidth) && (ballY - ballRadius >= groundY) && (ballY + ballRadius <= halfHeight - groundY);
 
             if (leftGoal)
             {
