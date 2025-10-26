@@ -27,7 +27,7 @@ class GameState
 
 class Player
 {
-    public IWebSocketConnection Socket { get; set; }
+    public required IWebSocketConnection Socket { get; set; }
     public string Id { get; set; } = Guid.NewGuid().ToString();
     public PlayerInput LastInput { get; set; } = new PlayerInput();
 }
@@ -155,8 +155,7 @@ class Match
 
     private void ApplyInput(Player player, ref float px, ref float py, ref float velY, float deltaTime)
     {
-        var input = player.LastInput;
-
+        var input = player.LastInput ?? new PlayerInput(); // garante não nulo
 
         // Movimento horizontal
         px += input.h * 5f * deltaTime;
@@ -192,8 +191,11 @@ class Match
             py = halfHeight - playerRadius;
             velY = 0f;
         }
-        player.LastInput = null;
+
+        // limpa input apenas se não for null
+        player.LastInput = new PlayerInput();
     }
+
 
     private void SendState(string lastEvent)
     {
