@@ -50,6 +50,7 @@ class Match
     private const float ballRadius = 0.5f;
     private const float jumpHeight = 8f;
     private const float kickPower = 15f;
+    private const float playerSpeed = 15f;
 
     private float halfWidth = fieldWidth / 2f;
     private float halfHeight = fieldHeight / 2f;
@@ -158,13 +159,13 @@ class Match
         var input = player.LastInput ?? new PlayerInput(); // garante não nulo
 
         // Movimento horizontal
-        px += input.h * 5f * deltaTime;
+        px += input.h * playerSpeed * deltaTime;
         px = Math.Clamp(px, -halfWidth + playerRadius, halfWidth - playerRadius);
 
         // Pulo
         if (input.v > 0 && py <= groundY + playerRadius + 0.01f)
         {
-            velY = jumpHeight;
+            velY = jumpHeight * deltaTime;
         }
 
         // Chute
@@ -173,8 +174,8 @@ class Match
         float dist = MathF.Sqrt(dx * dx + dy * dy);
         if (input.kick && dist < 1.5f)
         {
-            ballVelX = dx / dist * kickPower;
-            ballVelY = dy / dist * kickPower;
+            ballVelX = dx / dist * kickPower * deltaTime;
+            ballVelY = dy / dist * kickPower * deltaTime;
         }
 
         // Física vertical do player
