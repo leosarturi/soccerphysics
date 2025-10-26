@@ -51,7 +51,7 @@ class Match
 
     private const float jumpHeight = 350f;       // pulo realista
     private const float kickPower = 12f;       // força de chute realista
-    private const float playerSpeed = 5f;      // velocidade horizontal
+    private const float playerSpeed = 8f;      // velocidade horizontal
 
     private float halfWidth = fieldWidth / 2f;
     private float halfHeight = fieldHeight / 2f;
