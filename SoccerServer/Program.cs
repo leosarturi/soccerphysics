@@ -156,6 +156,7 @@ class Match
     private void ApplyInput(Player player, ref float px, ref float py, ref float velY, float deltaTime)
     {
         var input = player.LastInput;
+        player.LastInput = null;
 
         // Movimento horizontal
         px += input.h * 5f * deltaTime;
