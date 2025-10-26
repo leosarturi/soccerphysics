@@ -173,19 +173,16 @@ class Match
         }
 
         // Física vertical do player
-        velY -= 9.8f * deltaTime;
+        float gravity = 30f;
+        float fallMultiplier = 2.5f;
+
+        if (velY > 0)
+            velY -= gravity * deltaTime;
+        else
+            velY -= gravity * fallMultiplier * deltaTime;
+
         py += velY * deltaTime;
 
-        if (py - playerRadius < groundY)
-        {
-            py = groundY + playerRadius;
-            velY = 0f;
-        }
-        if (py + playerRadius > halfHeight)
-        {
-            py = halfHeight - playerRadius;
-            velY = 0f;
-        }
 
         player.LastInput = new PlayerInput(); // limpa input
     }
