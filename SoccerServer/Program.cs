@@ -48,9 +48,9 @@ class Match
     private const float groundY = -5f;
     private const float playerRadius = 1f;
     private const float ballRadius = 0.5f;
-    private const float jumpHeight = 50f;
-    private const float kickPower = 100f;
-    private const float playerSpeed = 30f;
+    private const float jumpHeight = 500f;
+    private const float kickPower = 1000f;
+    private const float playerSpeed = 100f;
 
     private float halfWidth = fieldWidth / 2f;
     private float halfHeight = fieldHeight / 2f;
