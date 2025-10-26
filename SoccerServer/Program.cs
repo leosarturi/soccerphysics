@@ -153,13 +153,13 @@ class Match
         var input = player.LastInput ?? new PlayerInput();
 
         // Movimento horizontal
-        px += input.h * playerSpeed;
+        px += input.h * playerSpeed * deltaTime;
         px = Math.Clamp(px, -halfWidth + playerRadius, halfWidth - playerRadius);
 
         // Pulo
         if (input.v > 0 && py <= groundY + playerRadius + 0.01f)
         {
-            velY = jumpHeight;
+            velY = jumpHeight * deltaTime;
         }
 
         // Chute
@@ -171,18 +171,29 @@ class Match
             ballVelX = dx / dist * kickPower;
             ballVelY = dy / dist * kickPower;
         }
-
         // Física vertical do player
         float gravity = 9.8f;
         float fallMultiplier = 2.5f;
 
         if (velY > 0)
-            velY -= gravity * deltaTime;
+            velY -= gravity * deltaTime;           // subindo
         else
-            velY -= gravity * fallMultiplier * deltaTime;
+            velY -= gravity * fallMultiplier * deltaTime; // caindo mais rápido
 
         py += velY * deltaTime;
 
+        // Limita player ao chão e teto
+        if (py - playerRadius < groundY)
+        {
+            py = groundY + playerRadius;
+            velY = 0f;
+        }
+
+        if (py + playerRadius > halfHeight)
+        {
+            py = halfHeight - playerRadius;
+            velY = 0f;
+        }
 
         player.LastInput = new PlayerInput(); // limpa input
     }
