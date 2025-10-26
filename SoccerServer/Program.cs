@@ -112,8 +112,8 @@ class Match
             float goalBottomY = groundY; // altura mínima do gol
 
             // Detecção de gol
-            bool leftGoal = (ballX - ballRadius < -halfWidth) && (ballY >= goalBottomY && ballY <= goalTopY);
-            bool rightGoal = (ballX + ballRadius > halfWidth) && (ballY >= goalBottomY && ballY <= goalTopY);
+            bool leftGoal = (ballX - ballRadius < -halfWidth + -goalwidth) && (ballY >= goalBottomY && ballY <= goalTopY);
+            bool rightGoal = (ballX + ballRadius > halfWidth + goalwidth) && (ballY >= goalBottomY && ballY <= goalTopY);
 
             if (leftGoal)
             {
